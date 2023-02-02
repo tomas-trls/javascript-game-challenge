@@ -33,7 +33,7 @@ class Player {
         x: this.position.x,
         y: this.position.y,
       },
-      width: 150,
+      width: 100,
       height: 50,
     };
   }
@@ -56,7 +56,7 @@ class Player {
   update() {
     this.draw();
 
-    //Updating position depending on velocity
+    //Updating position depending on velocity (moved up since velocity is updated with movements of player)
     this.position.y += this.velocity.y;
     this.position.x += this.velocity.x;
 
@@ -66,6 +66,9 @@ class Player {
     } else {
       this.velocity.y += gravity;
     }
+
+    this.attackBox.position.x = this.position.x;
+    this.attackBox.position.y = this.position.y;
   }
 }
 
@@ -167,6 +170,7 @@ animate();
 
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
+    //Player 1
     case "a":
       keys.a.pressed = true;
       player1.lastKey = "a";
@@ -181,6 +185,7 @@ window.addEventListener("keydown", (event) => {
       }
       break;
 
+    //Player 2 Movements
     case "ArrowLeft":
       keys.ArrowLeft.pressed = true;
       player2.lastKey = "ArrowLeft";
@@ -200,6 +205,7 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("keyup", (event) => {
   switch (event.key) {
+    //Player 1 release keys
     case "a":
       keys.a.pressed = false;
       break;
@@ -209,6 +215,8 @@ window.addEventListener("keyup", (event) => {
     case "w":
       keys.w.pressed = false;
       break;
+
+    //Player 2 release keys
     case "ArrowLeft":
       keys.ArrowLeft.pressed = false;
       break;
