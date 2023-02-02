@@ -27,11 +27,30 @@ class Player {
     this.isAttacking;
 
     this.lastKey;
+
+    this.attackBox = {
+      position: {
+        x: this.position.x,
+        y: this.position.y,
+      },
+      width: 150,
+      height: 50,
+    };
   }
 
   draw() {
+    //Player
     c.fillStyle = this.color;
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    //AttackBox
+    c.fillStyle = "green";
+    c.fillRect(
+      this.attackBox.position.x,
+      this.attackBox.position.y,
+      this.attackBox.width,
+      this.attackBox.height
+    );
   }
 
   update() {
