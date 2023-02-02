@@ -147,6 +147,7 @@ const keys = {
 //Important Functions
 
 const getWinner = (player1, player2) => {
+  clearTimeout(timerTimeOut);
   if (player1.health == player2.health) {
     gameResult.innerText = "Tie";
   } else if (player1.health > player2.health) {
