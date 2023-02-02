@@ -7,7 +7,7 @@ const playerOneHealthBar = document.querySelector("#player-one-damage");
 const playerTwoHealthBar = document.querySelector("#player-two-damage");
 
 const timerBox = document.querySelector(".game__timer");
-
+const gameResult = document.querySelector(".game__result");
 canvas.width = 1024;
 canvas.height = 576;
 
@@ -145,14 +145,30 @@ const keys = {
 };
 
 //Important Functions
+
+const getWinner = (player1, player2) => {
+  if (player1.health == player2.health) {
+    gameResult.innerText = "Tie";
+  } else if (player1.health > player2.health) {
+    gameResult.innerText = "Player 1 wins!";
+  } else if (player1.health < player2.health) {
+    gameResult.innerText = "Player 2 wins!";
+  }
+};
+
 let counter = 10;
+let timerId;
 const handleTimer = () => {
-  setTimeout(handleTimer, 1000);
+  timerId = setTimeout(handleTimer, 1000);
   if (counter > 0) {
     counter--;
     timerBox.innerText = counter;
   }
+  if (counter === 0) {
+    getWinner(player1, player2);
+  }
 };
+handleTimer();
 
 const rectangularCollision = (player1, player2) => {
   return (
@@ -165,7 +181,6 @@ const rectangularCollision = (player1, player2) => {
   );
 };
 
-handleTimer();
 //Canvas Rendering
 const animate = () => {
   requestAnimationFrame(animate);
@@ -198,7 +213,6 @@ const animate = () => {
     player1.isAttacking = false;
     player2.health -= 10;
     playerTwoHealthBar.style.width = `${player2.health}%`;
-    console.log("touched");
   }
 
   //Collision from player2 to player1
@@ -207,7 +221,6 @@ const animate = () => {
     player2.isAttacking = false;
     player1.health -= 10;
     playerOneHealthBar.style.width = `${player1.health}%`;
-    console.log("enemy attack");
   }
 };
 
