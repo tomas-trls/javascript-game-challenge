@@ -122,6 +122,7 @@ const animate = () => {
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
 
+  //Player 1 Controls
   player1.update();
 
   player1.velocity.x = 0;
@@ -131,7 +132,14 @@ const animate = () => {
     player1.velocity.x = 5;
   }
 
+  //Player 2 Controls
   player2.update();
+  player2.velocity.x = 0;
+  if (keys.ArrowLeft.pressed && player2.lastKey === "ArrowLeft") {
+    player2.velocity.x = -5;
+  } else if (keys.ArrowRight.pressed && player2.lastKey === "ArrowRight") {
+    player2.velocity.x = 5;
+  }
 };
 
 animate();
@@ -149,7 +157,24 @@ window.addEventListener("keydown", (event) => {
       player1.lastKey = "d";
       break;
     case "w":
-      player1.velocity.y = -20;
+      if (player1.velocity.y == 0) {
+        player1.velocity.y = -20;
+      }
+      break;
+
+    case "ArrowLeft":
+      keys.ArrowLeft.pressed = true;
+      player2.lastKey = "ArrowLeft";
+      break;
+    case "ArrowRight":
+      keys.ArrowRight.pressed = true;
+      player2.lastKey = "ArrowRight";
+      break;
+
+    case "ArrowUp":
+      if (player2.velocity.y == 0) {
+        player2.velocity.y = -20;
+      }
       break;
   }
 });
@@ -164,6 +189,15 @@ window.addEventListener("keyup", (event) => {
       break;
     case "w":
       keys.w.pressed = false;
+      break;
+    case "ArrowLeft":
+      keys.ArrowLeft.pressed = false;
+      break;
+    case "ArrowRight":
+      keys.ArrowRight.pressed = false;
+      break;
+    case "ArrowUp":
+      keys.ArrowUp.pressed = false;
       break;
   }
 });
