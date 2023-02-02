@@ -11,16 +11,17 @@
   <body>
     <div class="game">
       <div class="game__stats">
-        <div class="game__health-bar--playerOne">
+        <div class="game__health-bar game__health-bar--playerOne">
           <div class="game__bar--health"></div>
-          <div class="game__bar--damage"></div>
+          <div class="game__bar--damage" id="player-one-damage"></div>
         </div>
-        <div class="game__timer"></div>
-        <div class="game__health-bar--playerTwo">
+        <div class="game__timer">Timer</div>
+        <div class="game__health-bar game__health-bar--playerTwo">
           <div class="game__bar--health"></div>
-          <div class="game__bar--damage"></div>
+          <div class="game__bar--damage" id="player-two-damage"></div>
         </div>
       </div>
+      <div class="game__result">Tie</div>
       <canvas class="game__canvas"></canvas>
     </div>
   </body>

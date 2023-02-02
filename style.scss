@@ -2,4 +2,65 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.game {
+  position: relative;
+  display: inline-block;
+  &__stats {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 25px;
+  }
+  &__health-bar {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    .game__bar {
+      &--health {
+        background-color: yellow;
+        height: 30px;
+        width: 100%;
+      }
+      &--damage {
+        background-color: blue;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+    }
+  }
+
+  &__timer {
+    background-color: red;
+    height: 100px;
+    width: 100px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__result {
+    position: absolute;
+    color: white;
+    font-size: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
 }
