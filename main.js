@@ -157,9 +157,9 @@ const getWinner = (player1, player2) => {
 };
 
 let counter = 10;
-let timerId;
+let timerTimeOut;
 const handleTimer = () => {
-  timerId = setTimeout(handleTimer, 1000);
+  timerTimeOut = setTimeout(handleTimer, 1000);
   if (counter > 0) {
     counter--;
     timerBox.innerText = counter;
@@ -221,6 +221,12 @@ const animate = () => {
     player2.isAttacking = false;
     player1.health -= 10;
     playerOneHealthBar.style.width = `${player1.health}%`;
+  }
+
+  // Game ends when player life is 0
+
+  if (player1.health <= 0 || player2.health <= 0) {
+    getWinner(player1, player2, timerTimeOut);
   }
 };
 
