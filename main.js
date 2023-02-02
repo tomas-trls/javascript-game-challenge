@@ -1,90 +1,25 @@
+import { Player, Sprite } from "./js/classes.js";
+
+import { getWinner, rectangularCollision } from "./js/functions.js";
 //Setup Of the Canvas!
 
-const canvas = document.querySelector("canvas");
-const c = canvas.getContext("2d");
+export const canvas = document.querySelector("canvas");
+export const c = canvas.getContext("2d");
 
 const playerOneHealthBar = document.querySelector("#player-one-damage");
 const playerTwoHealthBar = document.querySelector("#player-two-damage");
 
 const timerBox = document.querySelector(".game__timer");
-const gameResult = document.querySelector(".game__result");
 canvas.width = 1024;
 canvas.height = 576;
 
 // Adding Important Physics
-const gravity = 0.7;
+export const gravity = 0.7;
 
 // Creating A Player
-class Player {
-  constructor({ position, velocity, color, attackBoxPosition }) {
-    this.position = position;
-    this.velocity = velocity;
-    this.color = color;
-    this.width = 50;
-    this.height = 150;
-
-    this.health = 100;
-    this.isAttacking;
-
-    this.lastKey;
-
-    this.attackBox = {
-      position: {
-        x: this.position.x,
-        y: this.position.y,
-      },
-      width: 100,
-      height: 50,
-      attackBoxPosition,
-    };
-  }
-
-  draw() {
-    //Player
-    c.fillStyle = this.color;
-    c.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    //AttackBox
-    if (this.isAttacking) {
-      c.fillStyle = "green";
-      c.fillRect(
-        this.attackBox.position.x,
-        this.attackBox.position.y,
-        this.attackBox.width,
-        this.attackBox.height
-      );
-    }
-  }
-
-  update() {
-    this.draw();
-
-    //Updating position depending on velocity (moved up since velocity is updated with movements of player)
-    this.position.y += this.velocity.y;
-    this.position.x += this.velocity.x;
-
-    //Adding Gravity to the project, changing the velocity.
-    if (this.position.y + this.height >= canvas.height) {
-      this.velocity.y = 0;
-    } else {
-      this.velocity.y += gravity;
-    }
-
-    this.attackBox.position.x =
-      this.position.x + this.attackBox.attackBoxPosition.x;
-    this.attackBox.position.y = this.position.y;
-  }
-
-  attack() {
-    this.isAttacking = true;
-    setTimeout(() => {
-      this.isAttacking = false;
-    }, 100);
-  }
-}
 
 //Player 1
-let player1 = new Player({
+export let player1 = new Player({
   position: {
     x: 100,
     y: 100,
@@ -101,7 +36,7 @@ let player1 = new Player({
 });
 
 //Player 2
-let player2 = new Player({
+export let player2 = new Player({
   position: {
     x: 800,
     y: 100,
@@ -144,21 +79,38 @@ const keys = {
   },
 };
 
-//Important Functions
+//Background Sprite
 
-const getWinner = (player1, player2) => {
-  clearTimeout(timerTimeOut);
-  if (player1.health == player2.health) {
-    gameResult.innerText = "Tie";
-  } else if (player1.health > player2.health) {
-    gameResult.innerText = "Player 1 wins!";
-  } else if (player1.health < player2.health) {
-    gameResult.innerText = "Player 2 wins!";
-  }
-};
+const background = new Sprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  imageSrc: "./assets/Rocky Pass Files/PNG/back.png",
+  scale: 2.4,
+});
 
-let counter = 10;
-let timerTimeOut;
+const middle = new Sprite({
+  position: {
+    x: 0,
+    y: 100,
+  },
+  imageSrc: "./assets/Rocky Pass Files/PNG/middle.png",
+  scale: 2,
+});
+
+const near = new Sprite({
+  position: {
+    x: 0,
+    y: 100,
+  },
+  imageSrc: "assets/Rocky Pass Files/PNG/near.png",
+  scale: 2,
+});
+
+//Timer
+let counter = 60;
+export let timerTimeOut;
 const handleTimer = () => {
   timerTimeOut = setTimeout(handleTimer, 1000);
   if (counter > 0) {
@@ -169,18 +121,8 @@ const handleTimer = () => {
     getWinner(player1, player2);
   }
 };
-handleTimer();
 
-const rectangularCollision = (player1, player2) => {
-  return (
-    player1.attackBox.position.x + player1.attackBox.width >=
-      player2.position.x &&
-    player1.attackBox.position.x <= player2.position.x + player2.width &&
-    player1.attackBox.position.y + player1.attackBox.height >=
-      player2.position.y &&
-    player1.attackBox.position.y <= player2.position.y + player2.height
-  );
-};
+handleTimer();
 
 //Canvas Rendering
 const animate = () => {
@@ -189,6 +131,11 @@ const animate = () => {
 
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
+
+  //Background Rendering
+  background.update();
+  middle.update();
+  near.update();
 
   //Player 1 Controls
   player1.update();
