@@ -45,13 +45,15 @@ class Player {
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     //AttackBox
-    c.fillStyle = "green";
-    c.fillRect(
-      this.attackBox.position.x,
-      this.attackBox.position.y,
-      this.attackBox.width,
-      this.attackBox.height
-    );
+    if (this.isAttacking) {
+      c.fillStyle = "green";
+      c.fillRect(
+        this.attackBox.position.x,
+        this.attackBox.position.y,
+        this.attackBox.width,
+        this.attackBox.height
+      );
+    }
   }
 
   update() {
@@ -71,6 +73,13 @@ class Player {
     this.attackBox.position.x =
       this.position.x + this.attackBox.attackBoxPosition.x;
     this.attackBox.position.y = this.position.y;
+  }
+
+  attack() {
+    this.isAttacking = true;
+    setTimeout(() => {
+      this.isAttacking = false;
+    }, 100);
   }
 }
 
@@ -145,6 +154,17 @@ const handleTimer = () => {
   }
 };
 
+const rectangularCollision = (player1, player2) => {
+  return (
+    player1.attackBox.position.x + player1.attackBox.width >=
+      player2.position.x &&
+    player1.attackBox.position.x <= player2.position.x + player2.width &&
+    player1.attackBox.position.y + player1.attackBox.height >=
+      player2.position.y &&
+    player1.attackBox.position.y <= player2.position.y + player2.height
+  );
+};
+
 handleTimer();
 //Canvas Rendering
 const animate = () => {
@@ -172,6 +192,23 @@ const animate = () => {
   } else if (keys.ArrowRight.pressed && player2.lastKey === "ArrowRight") {
     player2.velocity.x = 5;
   }
+
+  //Collision from player to Enemy
+  if (rectangularCollision(player1, player2) && player1.isAttacking) {
+    player1.isAttacking = false;
+    player2.health -= 10;
+    playerTwoHealthBar.style.width = `${player2.health}%`;
+    console.log("touched");
+  }
+
+  //Collision from player2 to player1
+
+  if (rectangularCollision(player2, player1) && player2.isAttacking) {
+    player2.isAttacking = false;
+    player1.health -= 10;
+    playerOneHealthBar.style.width = `${player1.health}%`;
+    console.log("enemy attack");
+  }
 };
 
 animate();
@@ -194,6 +231,9 @@ window.addEventListener("keydown", (event) => {
         player1.velocity.y = -20;
       }
       break;
+    case " ":
+      player1.attack();
+      break;
 
     //Player 2 Movements
     case "ArrowLeft":
@@ -209,6 +249,9 @@ window.addEventListener("keydown", (event) => {
       if (player2.velocity.y == 0) {
         player2.velocity.y = -20;
       }
+      break;
+    case "ArrowDown":
+      player2.attack();
       break;
   }
 });
