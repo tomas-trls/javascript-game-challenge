@@ -16,7 +16,7 @@ const gravity = 0.7;
 
 // Creating A Player
 class Player {
-  constructor({ position, velocity, color }) {
+  constructor({ position, velocity, color, attackBoxPosition }) {
     this.position = position;
     this.velocity = velocity;
     this.color = color;
@@ -35,6 +35,7 @@ class Player {
       },
       width: 100,
       height: 50,
+      attackBoxPosition,
     };
   }
 
@@ -67,7 +68,8 @@ class Player {
       this.velocity.y += gravity;
     }
 
-    this.attackBox.position.x = this.position.x;
+    this.attackBox.position.x =
+      this.position.x + this.attackBox.attackBoxPosition.x;
     this.attackBox.position.y = this.position.y;
   }
 }
@@ -83,6 +85,10 @@ let player1 = new Player({
     y: 0,
   },
   color: "blue",
+  attackBoxPosition: {
+    x: 0,
+    y: 0,
+  },
 });
 
 //Player 2
@@ -96,6 +102,10 @@ let player2 = new Player({
     y: 0,
   },
   color: "red",
+  attackBoxPosition: {
+    x: -50,
+    y: 0,
+  },
 });
 
 //Movements Object
