@@ -12,7 +12,7 @@ canvas.width = 1024;
 canvas.height = 576;
 
 // Adding Important Physics
-const gravity = 0.2;
+const gravity = 0.7;
 
 // Creating A Player
 class Player {
@@ -25,6 +25,8 @@ class Player {
 
     this.health = 100;
     this.isAttacking;
+
+    this.lastKey;
   }
 
   draw() {
@@ -35,18 +37,20 @@ class Player {
   update() {
     this.draw();
 
+    //Updating position depending on velocity
+    this.position.y += this.velocity.y;
+    this.position.x += this.velocity.x;
+
     //Adding Gravity to the project, changing the velocity.
     if (this.position.y + this.height >= canvas.height) {
       this.velocity.y = 0;
     } else {
       this.velocity.y += gravity;
     }
-
-    //Updating position depending on velocity
-    this.position.y += this.velocity.y;
   }
 }
 
+//Player 1
 let player1 = new Player({
   position: {
     x: 100,
@@ -59,6 +63,7 @@ let player1 = new Player({
   color: "blue",
 });
 
+//Player 2
 let player2 = new Player({
   position: {
     x: 800,
@@ -71,6 +76,45 @@ let player2 = new Player({
   color: "red",
 });
 
+//Movements Object
+const keys = {
+  a: {
+    pressed: false,
+  },
+
+  d: {
+    pressed: false,
+  },
+
+  w: {
+    pressed: false,
+  },
+
+  ArrowRight: {
+    pressed: false,
+  },
+
+  ArrowLeft: {
+    pressed: false,
+  },
+
+  ArrowUp: {
+    pressed: false,
+  },
+};
+
+//Important Functions
+let counter = 10;
+const handleTimer = () => {
+  setTimeout(handleTimer, 1000);
+  if (counter > 0) {
+    counter--;
+    timerBox.innerText = counter;
+  }
+};
+
+handleTimer();
+//Canvas Rendering
 const animate = () => {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height);
@@ -79,7 +123,47 @@ const animate = () => {
   c.fillRect(0, 0, canvas.width, canvas.height);
 
   player1.update();
+
+  player1.velocity.x = 0;
+  if (keys.a.pressed && player1.lastKey === "a") {
+    player1.velocity.x = -5;
+  } else if (keys.d.pressed && player1.lastKey === "d") {
+    player1.velocity.x = 5;
+  }
+
   player2.update();
 };
 
 animate();
+
+//Player Movements
+
+window.addEventListener("keydown", (event) => {
+  switch (event.key) {
+    case "a":
+      keys.a.pressed = true;
+      player1.lastKey = "a";
+      break;
+    case "d":
+      keys.d.pressed = true;
+      player1.lastKey = "d";
+      break;
+    case "w":
+      player1.velocity.y = -20;
+      break;
+  }
+});
+
+window.addEventListener("keyup", (event) => {
+  switch (event.key) {
+    case "a":
+      keys.a.pressed = false;
+      break;
+    case "d":
+      keys.d.pressed = false;
+      break;
+    case "w":
+      keys.w.pressed = false;
+      break;
+  }
+});
