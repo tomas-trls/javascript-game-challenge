@@ -95,6 +95,7 @@ body {
         border-radius: 0px 15px 15px 0px;
       }
       &--damage {
+        border-radius: 0px 15px 15px 0px;
         background: linear-gradient(
           45deg,
           rgb(0, 200, 255),
@@ -117,6 +118,7 @@ body {
           border-radius: 15px 0px 0px 15px;
         }
         &--damage {
+          border-radius: 15px 0px 0px 15px;
           background: linear-gradient(
             45deg,
             rgb(102, 46, 221),

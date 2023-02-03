@@ -98,6 +98,7 @@ body {
   border-radius: 0px 15px 15px 0px;
 }
 .game__health-bar .game__bar--damage {
+  border-radius: 0px 15px 15px 0px;
   background: linear-gradient(45deg, rgb(0, 200, 255), rgb(0, 162, 255), rgb(30, 0, 255), rgb(102, 46, 221));
   position: absolute;
   top: 0;
@@ -113,6 +114,7 @@ body {
   border-radius: 15px 0px 0px 15px;
 }
 .game__health-bar--player-one .game__bar--damage {
+  border-radius: 15px 0px 0px 15px;
   background: linear-gradient(45deg, rgb(102, 46, 221), rgb(30, 0, 255), rgb(0, 162, 255), rgb(0, 200, 255));
 }
 .game__timer {

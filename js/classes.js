@@ -99,12 +99,13 @@ export class Player extends Sprite {
     this.framesStatic = 0;
     this.framesRead = 0;
     this.framesHold = 5;
+
+    //Going through all the sprites
     this.sprites = sprites;
     for (const sprite in this.sprites) {
       sprites[sprite].image = new Image();
       sprites[sprite].image.src = sprites[sprite].imageSrc;
     }
-    this.dead = false;
   }
 
   update() {
