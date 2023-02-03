@@ -34,25 +34,33 @@ export let player1 = new Player({
     y: 0,
   },
   imageSrc: "./assets/Martial Hero 3/Sprite/Idle.png",
-  framesMax: 10,
+  framesRate: 10,
   scale: 3,
   offset: { x: 200, y: 100 },
   sprites: {
     idle: {
       imageSrc: "./assets/Martial Hero 3/Sprite/Idle.png",
-      framesMax: 10,
+      framesRate: 10,
     },
     run: {
       imageSrc: "./assets/Martial Hero 3/Sprite/Run.png",
-      framesMax: 8,
+      framesRate: 8,
     },
     jump: {
       imageSrc: "./assets/Martial Hero 3/Sprite/Going Up.png",
-      framesMax: 3,
+      framesRate: 3,
     },
     attack: {
       imageSrc: "./assets/Martial Hero 3/Sprite/Attack2.png",
-      framesMax: 6,
+      framesRate: 6,
+    },
+    hit: {
+      imageSrc: "./assets/Martial Hero 3/Sprite/Take Hit.png",
+      framesRate: 3,
+    },
+    death: {
+      imageSrc: "./assets/Martial Hero 3/Sprite/Death.png",
+      framesRate: 11,
     },
   },
 });
@@ -73,25 +81,34 @@ export let player2 = new Player({
     y: 0,
   },
   imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Idle.png",
-  framesMax: 8,
+  framesRate: 8,
   scale: 3,
   offset: { x: 100, y: 140 },
   sprites: {
     idle: {
       imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Idle.png",
-      framesMax: 8,
+      framesRate: 8,
     },
     run: {
       imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Run.png",
-      framesMax: 8,
+      framesRate: 8,
     },
     jump: {
       imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Jump.png",
-      framesMax: 2,
+      framesRate: 2,
     },
     attack: {
       imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Attack2.png",
-      framesMax: 4,
+      framesRate: 4,
+    },
+    hit: {
+      imageSrc:
+        "assets/Medieval Warrior Pack 2/Sprites/Take Hit - white silhouette.png",
+      framesRate: 4,
+    },
+    death: {
+      imageSrc: "assets/Medieval Warrior Pack 2/Sprites/Death.png",
+      framesRate: 6,
     },
   },
 });
@@ -219,8 +236,13 @@ const animate = () => {
     player2.switchSprite("jump");
   }
 
-  //Collision from player to Enemy
-  if (rectangularCollision(player1, player2) && player1.isAttacking) {
+  //Collision from player1 to player2
+  if (
+    rectangularCollision(player1, player2) &&
+    player1.isAttacking &&
+    player1.framesStatic == 4
+  ) {
+    player2.switchSprite("hit");
     player1.isAttacking = false;
     player2.health -= 10;
     playerTwoHealthBar.style.width = `${player2.health}%`;
@@ -232,6 +254,7 @@ const animate = () => {
     player2.isAttacking = false;
     player1.health -= 10;
     playerOneHealthBar.style.width = `${player1.health}%`;
+    player1.switchSprite("hit");
   }
 
   // Game ends when player life is 0

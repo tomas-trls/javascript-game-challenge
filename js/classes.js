@@ -5,7 +5,7 @@ export class Sprite {
     position,
     imageSrc,
     scale = 1,
-    framesMax = 1,
+    framesRate = 1,
     offset = { x: 0, y: 0 },
   }) {
     this.position = position;
@@ -14,7 +14,7 @@ export class Sprite {
     this.image = new Image();
     this.image.src = imageSrc;
     this.scale = scale;
-    this.framesMax = framesMax;
+    this.framesRate = framesRate;
     this.framesStatic = 0;
     this.framesRead = 0;
     this.framesHold = 3;
@@ -24,29 +24,33 @@ export class Sprite {
   draw() {
     c.drawImage(
       this.image,
-      this.framesStatic * (this.image.width / this.framesMax),
+      this.framesStatic * (this.image.width / this.framesRate),
       0,
-      this.image.width / this.framesMax,
+      this.image.width / this.framesRate,
       this.image.height,
 
       this.position.x - this.offset.x,
       this.position.y - this.offset.y,
-      (this.image.width / this.framesMax) * this.scale,
+      (this.image.width / this.framesRate) * this.scale,
       this.image.height * this.scale
     );
   }
 
-  update() {
-    this.draw();
+  animateFrames() {
     this.framesRead++;
 
     if (this.framesRead % this.framesHold == 0) {
-      if (this.framesStatic < this.framesMax - 1) {
+      if (this.framesStatic < this.framesRate - 1) {
         this.framesStatic++;
       } else {
         this.framesStatic = 0;
       }
     }
+  }
+
+  update() {
+    this.draw();
+    this.animateFrames();
   }
 }
 
@@ -58,18 +62,16 @@ export class Player extends Sprite {
     attackBoxPosition,
     imageSrc,
     scale = 1,
-    framesMax = 1,
+    framesRate = 1,
     offset = { x: 0, y: 0 },
     sprites,
-    rotation,
   }) {
     super({
       position,
       imageSrc,
       scale,
-      framesMax,
+      framesRate,
       offset,
-      rotation,
     });
     this.velocity = velocity;
     this.color = color;
@@ -99,6 +101,7 @@ export class Player extends Sprite {
       sprites[sprite].image = new Image();
       sprites[sprite].image.src = sprites[sprite].imageSrc;
     }
+    this.dead = false;
   }
 
   update() {
@@ -123,54 +126,82 @@ export class Player extends Sprite {
     this.framesRead++;
 
     if (this.framesRead % this.framesHold == 0) {
-      if (this.framesStatic < this.framesMax - 1) {
+      if (this.framesStatic < this.framesRate - 1) {
         this.framesStatic++;
       } else {
         this.framesStatic = 0;
       }
     }
+
+    //If the player dies
+
+    if (!this.dead) this.animateFrames();
   }
 
   attack() {
     this.switchSprite("attack");
     this.isAttacking = true;
-    setTimeout(() => {
-      this.isAttacking = false;
-    }, 100);
   }
 
   switchSprite(sprite) {
     if (
       this.image == this.sprites.attack.image &&
-      this.framesStatic < this.sprites.attack.framesMax - 1
+      this.framesStatic < this.sprites.attack.framesRate - 1
     )
       return;
+
+    if (
+      this.image == this.sprites.hit.image &&
+      this.framesStatic < this.sprites.hit.framesRate - 1
+    )
+      return;
+
+    if (this.image == this.sprites.death.image) {
+      if (this.framesStatic == this.sprites.death.framesRate - 1) {
+        this.dead = true;
+      }
+      return;
+    }
     switch (sprite) {
       case "idle":
         if (this.image !== this.sprites.idle.image) {
           this.image = this.sprites.idle.image;
-          this.framesMax = this.sprites.idle.framesMax;
+          this.framesRate = this.sprites.idle.framesRate;
           this.framesStatic = 0;
         }
         break;
       case "run":
         if (this.image !== this.sprites.run.image) {
           this.image = this.sprites.run.image;
-          this.framesMax = this.sprites.run.framesMax;
+          this.framesRate = this.sprites.run.framesRate;
           this.framesStatic = 0;
         }
         break;
       case "jump":
         if (this.image !== this.sprites.jump.image) {
           this.image = this.sprites.jump.image;
-          this.framesMax = this.sprites.jump.framesMax;
+          this.framesRate = this.sprites.jump.framesRate;
           this.framesStatic = 0;
         }
         break;
       case "attack":
         if (this.image !== this.sprites.attack.image) {
           this.image = this.sprites.attack.image;
-          this.framesMax = this.sprites.attack.framesMax;
+          this.framesRate = this.sprites.attack.framesRate;
+          this.framesStatic = 0;
+        }
+        break;
+      case "hit":
+        if (this.image !== this.sprites.hit.image) {
+          this.image = this.sprites.hit.image;
+          this.framesRate = this.sprites.hit.framesRate;
+          this.framesStatic = 0;
+        }
+        break;
+      case "death":
+        if (this.image !== this.sprites.death.image) {
+          this.image = this.sprites.death.image;
+          this.framesRate = this.sprites.death.framesRate;
           this.framesStatic = 0;
         }
         break;

@@ -7,8 +7,10 @@ export const getWinner = (player1, player2) => {
   if (player1.health == player2.health) {
     gameResult.innerText = "Tie";
   } else if (player1.health > player2.health) {
+    player2.switchSprite("death");
     gameResult.innerText = "Player 1 wins!";
   } else if (player1.health < player2.health) {
+    player1.switchSprite("death");
     gameResult.innerText = "Player 2 wins!";
   }
 };
