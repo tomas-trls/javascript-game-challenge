@@ -31,12 +31,19 @@ body {
       height: 30px;
       width: 100%;
       &--health {
-        background-color: yellow;
+        background: linear-gradient(to left, red, orange, yellow);
         height: 30px;
         width: 100%;
+        border-radius: 0px 15px 15px 0px;
       }
       &--damage {
-        background-color: blue;
+        background: linear-gradient(
+          45deg,
+          rgb(0, 200, 255),
+          rgb(0, 162, 255),
+          rgb(30, 0, 255),
+          rgb(102, 46, 221)
+        );
         position: absolute;
         top: 0;
         bottom: 0;
@@ -46,11 +53,27 @@ body {
     &--player-one {
       display: flex;
       justify-content: flex-end;
+      .game__bar {
+        &--health {
+          background: linear-gradient(to right, red, orange, yellow);
+          border-radius: 15px 0px 0px 15px;
+        }
+        &--damage {
+          background: linear-gradient(
+            45deg,
+            rgb(102, 46, 221),
+            rgb(30, 0, 255),
+            rgb(0, 162, 255),
+            rgb(0, 200, 255)
+          );
+        }
+      }
     }
   }
 
   &__timer {
-    background-color: red;
+    background-color: white;
+    border: 4px solid lime;
     height: 100px;
     width: 100px;
     flex-shrink: 0;
