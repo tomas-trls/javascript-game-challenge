@@ -1,6 +1,6 @@
 # 🌟 JavaScript Fighting Game 🥊
 
-This project is a fighting game, This project was my biggest challenge since joining \_Nology and it helped me showcase my skills in front-end development, particularly in CSS and JavaScript.
+This project is a fighting game, this project was my biggest challenge since joining \_Nology and it helped me showcase my skills in front-end development, particularly in CSS and JavaScript.
 It helped me understand Functional Javascript but I also started to learn and understand the basics of Object Oriented Programming (OOP) with `classes` and the `extends` keyword.
 
 One of my goals as a developer was to learn HTML5 Canvas and I am thrilled that I was able to achieve this through this project. I had the opportunity to work with HTML5 Canvas from scratch and I learned a lot about how to manipulate the canvas, create animations, and more.
