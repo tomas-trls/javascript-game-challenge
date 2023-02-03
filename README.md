@@ -41,6 +41,10 @@ Open the `index.html` file inside the folder.
 <br />
 <p align="center">
   <strong><a href="https://tomas-trls.github.io/javascript-game-challenge/">[Live Demo] See the site live HERE! </a></strong>
+  <br/ >
+
+![FightGame](http://g.recordit.co/D1Df7KC4kO.gif)
+
 </p>
 
 ## ⚡️ Technologies used ⚡️
