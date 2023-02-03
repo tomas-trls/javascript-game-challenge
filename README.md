@@ -47,7 +47,17 @@ Open the `index.html` file inside the folder.
   
 </p>
 
+### 🎮 Controls 🎮
 
+<div align="center">
+
+|  **Action**  | **Player 1**   | **Player 2**            |
+| :---:        |     :---:      |    :---:                |
+| Run          | `A` & `D`        | `Left` & `Right Arrow`|
+| Jump         | `W`            | `Up Arrow`              |
+| Attack       |     `SPACE`    | `Down Arrow`            | 
+
+</div>
 
 ## ⚡️ Technologies used ⚡️
 
