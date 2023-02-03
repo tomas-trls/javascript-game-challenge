@@ -7,9 +7,9 @@ One of my goals as a developer was to learn HTML5 Canvas and I am thrilled that 
 
 My next big step would be to continue expanding my knowledge in new technologies and I would be thrilled to learn Three.JS to implement 3D in my projects. I believe that this project showcases not only my technical skills but also my quick learning abilities, as I had to start from scratch with HTML5 Canvas.
 
-I would like to give credit to <a href="https://chriscourses.com/">Chris Course</a> that has done excellent Tutorials on HTML5 Canvas. And has his courses helped me understand some core concepts of OOP using canvas.
+I would like to give credit to <a href="https://chriscourses.com/">Chris Course</a> that has done excellent Tutorials on HTML5 Canvas. Specially because his courses helped me understand some core concepts of OOP using canvas. But also <a href="https://luizmelo.itch.io/">Luiz Melo</a> that sells free pixel art characters assets on Itch.io and <a href="https://ansimuz.itch.io/">Ansimuz</a> that provided the background for free too on Itch.io. 
 
-If you are interested in learning more about journey to develop this project, feel free to explore this repository and my these ones:
+If you are interested in learning more about journey to develop this project, feel free to explore this repository and have a look at these ones:
 
 - <a href="https://github.com/tomas-trls/canvas-basics">Canvas Basics</a>
 - <a href="https://github.com/tomas-trls/canvas-gravity">Canvas Gravity</a>
@@ -42,10 +42,12 @@ Open the `index.html` file inside the folder.
 <p align="center">
   <strong><a href="https://tomas-trls.github.io/javascript-game-challenge/">[Live Demo] See the site live HERE! </a></strong>
   <br/ >
-
-![FightGame](http://g.recordit.co/D1Df7KC4kO.gif)
-
+    
+   ![GameFighter](http://g.recordit.co/J2AAldCiFc.gif)
+  
 </p>
+
+
 
 ## ⚡️ Technologies used ⚡️
 
