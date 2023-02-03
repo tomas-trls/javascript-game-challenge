@@ -33,6 +33,10 @@ export let player1 = new Player({
     x: 0,
     y: 0,
   },
+  imageSrc: "./assets/Martial Hero 3/Sprite/Idle.png",
+  framesMax: 10,
+  scale: 3,
+  offset: { x: 200, y: 100 },
 });
 
 //Player 2
@@ -148,7 +152,7 @@ const animate = () => {
   }
 
   //Player 2 Controls
-  player2.update();
+  //player2.update();
   player2.velocity.x = 0;
   if (keys.ArrowLeft.pressed && player2.lastKey === "ArrowLeft") {
     player2.velocity.x = -5;

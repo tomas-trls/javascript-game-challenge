@@ -1,7 +1,13 @@
 import { canvas, c, gravity } from "../main.js";
 
 export class Sprite {
-  constructor({ position, imageSrc, scale = 1, framesMax = 1 }) {
+  constructor({
+    position,
+    imageSrc,
+    scale = 1,
+    framesMax = 1,
+    offset = { x: 0, y: 0 },
+  }) {
     this.position = position;
     this.width = 50;
     this.height = 150;
@@ -12,6 +18,7 @@ export class Sprite {
     this.framesStatic = 0;
     this.framesRead = 0;
     this.framesHold = 3;
+    this.offset = offset;
   }
 
   draw() {
@@ -22,8 +29,8 @@ export class Sprite {
       this.image.width / this.framesMax,
       this.image.height,
 
-      this.position.x,
-      this.position.y,
+      this.position.x - this.offset.x,
+      this.position.y - this.offset.y,
       (this.image.width / this.framesMax) * this.scale,
       this.image.height * this.scale
     );
@@ -52,12 +59,14 @@ export class Player extends Sprite {
     imageSrc,
     scale = 1,
     framesMax = 1,
+    offset = { x: 0, y: 0 },
   }) {
     super({
       position,
       imageSrc,
       scale,
       framesMax,
+      offset,
     });
     this.velocity = velocity;
     this.color = color;
@@ -81,7 +90,7 @@ export class Player extends Sprite {
 
     this.framesStatic = 0;
     this.framesRead = 0;
-    this.framesHold = 3;
+    this.framesHold = 5;
   }
 
   update() {
@@ -101,6 +110,17 @@ export class Player extends Sprite {
     this.attackBox.position.x =
       this.position.x + this.attackBox.attackBoxPosition.x;
     this.attackBox.position.y = this.position.y;
+
+    //Adding Animation of Sprite
+    this.framesRead++;
+
+    if (this.framesRead % this.framesHold == 0) {
+      if (this.framesStatic < this.framesMax - 1) {
+        this.framesStatic++;
+      } else {
+        this.framesStatic = 0;
+      }
+    }
   }
 
   attack() {
