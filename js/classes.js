@@ -106,7 +106,6 @@ export class Player extends Sprite {
 
   update() {
     this.draw();
-
     //Updating position depending on velocity (moved up since velocity is updated with movements of player)
     this.position.y += this.velocity.y;
     this.position.x += this.velocity.x;
@@ -132,10 +131,6 @@ export class Player extends Sprite {
         this.framesStatic = 0;
       }
     }
-
-    //If the player dies
-
-    if (!this.dead) this.animateFrames();
   }
 
   attack() {
@@ -156,12 +151,12 @@ export class Player extends Sprite {
     )
       return;
 
-    if (this.image == this.sprites.death.image) {
-      if (this.framesStatic == this.sprites.death.framesRate - 1) {
-        this.dead = true;
-      }
+    if (
+      this.image == this.sprites.death.image &&
+      this.framesStatic < this.sprites.death.framesRate - 1
+    )
       return;
-    }
+
     switch (sprite) {
       case "idle":
         if (this.image !== this.sprites.idle.image) {

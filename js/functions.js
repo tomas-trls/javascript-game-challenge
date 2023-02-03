@@ -25,3 +25,7 @@ export const rectangularCollision = (player1, player2) => {
     player1.attackBox.position.y <= player2.position.y + player2.height
   );
 };
+
+export const restartTimer = () => {
+  window.location.reload();
+};

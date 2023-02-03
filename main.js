@@ -1,6 +1,10 @@
 import { Player, Sprite } from "./js/classes.js";
 
-import { getWinner, rectangularCollision } from "./js/functions.js";
+import {
+  getWinner,
+  rectangularCollision,
+  restartTimer,
+} from "./js/functions.js";
 //Setup Of the Canvas!
 
 export const canvas = document.querySelector("canvas");
@@ -10,6 +14,8 @@ const playerOneHealthBar = document.querySelector("#player-one-damage");
 const playerTwoHealthBar = document.querySelector("#player-two-damage");
 
 const timerBox = document.querySelector(".game__timer");
+const restart = document.querySelector(".controls__restart");
+
 canvas.width = 1024;
 canvas.height = 576;
 
@@ -170,7 +176,7 @@ const near = new Sprite({
 });
 
 //Timer
-let counter = 30;
+let counter = 45;
 export let timerTimeOut;
 const handleTimer = () => {
   timerTimeOut = setTimeout(handleTimer, 1000);
@@ -335,3 +341,6 @@ window.addEventListener("keyup", (event) => {
       break;
   }
 });
+
+//Restart Button
+restart.addEventListener("click", restartTimer);

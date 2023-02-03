@@ -1,17 +1,46 @@
+@import "https://use.typekit.net/ifq7fkp.css";
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: "Vox", sans-serif;
 }
 
 body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background: linear-gradient(
+    45deg,
+    rgb(245, 148, 30),
+    rgb(230, 31, 31),
+    rgb(21, 68, 209),
+    rgb(43, 215, 43)
+  );
+  animation: gradient 10s ease infinite;
+  background-size: 400%;
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 }
+
+.controls {
+  margin: 25px 0;
+  &--restart {
+  }
+}
+
 .game {
   position: relative;
   display: inline-block;
@@ -72,7 +101,9 @@ body {
   }
 
   &__timer {
-    background-color: white;
+    color: white;
+    font-size: 3rem;
+    text-shadow: 1px 1px black;
     border: 4px solid lime;
     height: 100px;
     width: 100px;
@@ -80,11 +111,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 25px;
+    background: linear-gradient(
+      45deg,
+      rgb(25, 156, 117),
+      rgb(4, 165, 4),
+      rgb(32, 223, 32),
+      rgb(0, 255, 187)
+    );
   }
 
   &__result {
     position: absolute;
     color: white;
+    text-shadow: 1px 1px black;
     font-size: 5rem;
     display: flex;
     justify-content: center;
