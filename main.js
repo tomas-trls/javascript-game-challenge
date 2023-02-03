@@ -37,6 +37,24 @@ export let player1 = new Player({
   framesMax: 10,
   scale: 3,
   offset: { x: 200, y: 100 },
+  sprites: {
+    idle: {
+      imageSrc: "./assets/Martial Hero 3/Sprite/Idle.png",
+      framesMax: 10,
+    },
+    run: {
+      imageSrc: "./assets/Martial Hero 3/Sprite/Run.png",
+      framesMax: 8,
+    },
+    jump: {
+      imageSrc: "./assets/Martial Hero 3/Sprite/Going Up.png",
+      framesMax: 3,
+    },
+    attack: {
+      imageSrc: "./assets/Martial Hero 3/Sprite/Attack2.png",
+      framesMax: 6,
+    },
+  },
 });
 
 //Player 2
@@ -53,6 +71,28 @@ export let player2 = new Player({
   attackBoxPosition: {
     x: -50,
     y: 0,
+  },
+  imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Idle.png",
+  framesMax: 8,
+  scale: 3,
+  offset: { x: 100, y: 140 },
+  sprites: {
+    idle: {
+      imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Idle.png",
+      framesMax: 8,
+    },
+    run: {
+      imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Run.png",
+      framesMax: 8,
+    },
+    jump: {
+      imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Jump.png",
+      framesMax: 2,
+    },
+    attack: {
+      imageSrc: "./assets/Medieval Warrior Pack 2/Sprites/Attack2.png",
+      framesMax: 4,
+    },
   },
 });
 
@@ -144,20 +184,39 @@ const animate = () => {
   //Player 1 Controls
   player1.update();
 
+  //Moving
   player1.velocity.x = 0;
+
+  player1.switchSprite("idle");
   if (keys.a.pressed && player1.lastKey === "a") {
     player1.velocity.x = -5;
+    player1.switchSprite("run");
   } else if (keys.d.pressed && player1.lastKey === "d") {
     player1.velocity.x = 5;
+    player1.switchSprite("run");
+  }
+
+  //Jumping
+  if (player1.velocity.y < 0) {
+    player1.switchSprite("jump");
   }
 
   //Player 2 Controls
-  //player2.update();
+  c.scale(-1, 1);
+  player2.update();
   player2.velocity.x = 0;
+  player2.switchSprite("idle");
   if (keys.ArrowLeft.pressed && player2.lastKey === "ArrowLeft") {
     player2.velocity.x = -5;
+    player2.switchSprite("run");
   } else if (keys.ArrowRight.pressed && player2.lastKey === "ArrowRight") {
     player2.velocity.x = 5;
+    player2.switchSprite("run");
+  }
+
+  //Jumping
+  if (player2.velocity.y < 0) {
+    player2.switchSprite("jump");
   }
 
   //Collision from player to Enemy
@@ -204,6 +263,7 @@ window.addEventListener("keydown", (event) => {
       break;
     case " ":
       player1.attack();
+
       break;
 
     //Player 2 Movements

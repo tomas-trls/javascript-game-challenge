@@ -60,6 +60,8 @@ export class Player extends Sprite {
     scale = 1,
     framesMax = 1,
     offset = { x: 0, y: 0 },
+    sprites,
+    rotation,
   }) {
     super({
       position,
@@ -67,6 +69,7 @@ export class Player extends Sprite {
       scale,
       framesMax,
       offset,
+      rotation,
     });
     this.velocity = velocity;
     this.color = color;
@@ -91,6 +94,11 @@ export class Player extends Sprite {
     this.framesStatic = 0;
     this.framesRead = 0;
     this.framesHold = 5;
+    this.sprites = sprites;
+    for (const sprite in this.sprites) {
+      sprites[sprite].image = new Image();
+      sprites[sprite].image.src = sprites[sprite].imageSrc;
+    }
   }
 
   update() {
@@ -124,9 +132,48 @@ export class Player extends Sprite {
   }
 
   attack() {
+    this.switchSprite("attack");
     this.isAttacking = true;
     setTimeout(() => {
       this.isAttacking = false;
     }, 100);
+  }
+
+  switchSprite(sprite) {
+    if (
+      this.image == this.sprites.attack.image &&
+      this.framesStatic < this.sprites.attack.framesMax - 1
+    )
+      return;
+    switch (sprite) {
+      case "idle":
+        if (this.image !== this.sprites.idle.image) {
+          this.image = this.sprites.idle.image;
+          this.framesMax = this.sprites.idle.framesMax;
+          this.framesStatic = 0;
+        }
+        break;
+      case "run":
+        if (this.image !== this.sprites.run.image) {
+          this.image = this.sprites.run.image;
+          this.framesMax = this.sprites.run.framesMax;
+          this.framesStatic = 0;
+        }
+        break;
+      case "jump":
+        if (this.image !== this.sprites.jump.image) {
+          this.image = this.sprites.jump.image;
+          this.framesMax = this.sprites.jump.framesMax;
+          this.framesStatic = 0;
+        }
+        break;
+      case "attack":
+        if (this.image !== this.sprites.attack.image) {
+          this.image = this.sprites.attack.image;
+          this.framesMax = this.sprites.attack.framesMax;
+          this.framesStatic = 0;
+        }
+        break;
+    }
   }
 }
