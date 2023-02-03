@@ -43,7 +43,7 @@ Open the `index.html` file inside the folder.
   <strong><a href="https://tomas-trls.github.io/javascript-game-challenge/">[Live Demo] See the site live HERE! </a></strong>
   <br/ >
     
-   ![GameFighter](http://g.recordit.co/J2AAldCiFc.gif)
+   ![GameFighter](https://github.com/tomas-trls/javascript-game-challenge/blob/main/gifFightinGame.gif)
   
 </p>
 
