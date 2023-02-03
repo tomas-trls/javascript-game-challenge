@@ -22,6 +22,9 @@ export class Sprite {
   }
 
   draw() {
+    /*
+      https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+    */
     c.drawImage(
       this.image,
       this.framesStatic * (this.image.width / this.framesRate),
