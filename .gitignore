@@ -3,3 +3,4 @@
 *.sass.map
 *.scss.map
 .vscode/
+.DS_Store

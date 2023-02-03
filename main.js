@@ -153,7 +153,7 @@ const near = new Sprite({
 });
 
 //Timer
-let counter = 60;
+let counter = 30;
 export let timerTimeOut;
 const handleTimer = () => {
   timerTimeOut = setTimeout(handleTimer, 1000);
@@ -202,7 +202,7 @@ const animate = () => {
   }
 
   //Player 2 Controls
-  c.scale(-1, 1);
+
   player2.update();
   player2.velocity.x = 0;
   player2.switchSprite("idle");
